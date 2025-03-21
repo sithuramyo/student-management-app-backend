@@ -1,4 +1,4 @@
-name: Deploy .NET 8 API to EC2
+name: Deploy Student Management Api
 
 on:
   push:

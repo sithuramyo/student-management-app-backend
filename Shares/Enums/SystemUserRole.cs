@@ -2,6 +2,8 @@
 
 public enum SystemUserRole
 {
-    SUPERADMIN,
-    ADMIN,
+    SuperAdmin,
+    Admin,
+    Faculty,
+    Student
 }

@@ -24,7 +24,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
                 Name = "Super Admin",
                 Email = "superadmin@studify.com",
                 Password = PasswordHelper.HashPassword("superadmin"),
-                Role = SystemUserRole.SUPERADMIN.ToString()
+                Role = SystemUserRole.SuperAdmin.ToString()
             }
         );
     }

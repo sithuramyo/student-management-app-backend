@@ -7,9 +7,9 @@ using Shares.Models.ApiModels;
 
 namespace Shares.Helpers;
 
-public class TokenHelper(IConfiguration  configuration)
+public class TokenHelper(IConfiguration configuration)
 {
-     public TokenResponse GenerateToken(string id,string username,string role)
+    public TokenResponse GenerateToken(string id, string username, string role)
     {
         TokenResponse response = new TokenResponse();
         var issuer = configuration["Jwt:Issuer"];
@@ -42,7 +42,7 @@ public class TokenHelper(IConfiguration  configuration)
             new(JwtRegisteredClaimNames.Iss, issuer),
             new(JwtRegisteredClaimNames.Aud, audience)
         };
-        
+
         var token = new JwtSecurityToken(
             issuer: issuer,
             audience: audience,

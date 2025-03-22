@@ -5,7 +5,7 @@ using Shares.Models.Auth;
 
 namespace Interfaces.Features.Auth;
 
-public class AuthService(AppDbContext context,TokenHelper tokenHelper) : IAuthService
+public class AuthService(AppDbContext context, TokenHelper tokenHelper) : IAuthService
 {
     public async Task<ApiResponse<AuthResponseModel>> LoginAsync(AuthRequestModel request)
     {
@@ -16,8 +16,8 @@ public class AuthService(AppDbContext context,TokenHelper tokenHelper) : IAuthSe
         {
             return ApiResponse<AuthResponseModel>.NotFound("User does not exist");
         }
-        
-        var tokenModel = tokenHelper.GenerateToken(data.Id,data.Name,data.Role);
+
+        var tokenModel = tokenHelper.GenerateToken(data.Id, data.Name, data.Role);
         response.AccessToken = tokenModel.AccessToken;
         response.ExpiresIn = tokenModel.ExpiresIn;
         return ApiResponse<AuthResponseModel>.Success(response);

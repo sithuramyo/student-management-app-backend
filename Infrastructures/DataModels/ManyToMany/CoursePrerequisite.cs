@@ -2,6 +2,6 @@
 
 public class CoursePrerequisite : BaseDataModel
 {
-    public string CourseCode { get; set; }
-    public string PrerequisiteId { get; set; }
+    public string CourseCode { get; set; } = null!;
+    public string PrerequisiteId { get; set; } = null!;
 }

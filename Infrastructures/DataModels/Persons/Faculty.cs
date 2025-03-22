@@ -2,9 +2,9 @@
 
 public class Faculty : BaseDataModel
 {
-    public string SystemUserId { get; set; }
-    public string Code { get; set; }
-    public string PhoneNumber { get; set; }
+    public string SystemUserId { get; set; } = null!;
+    public string Code { get; set; } = null!;
+    public string PhoneNumber { get; set; } = null!;
     public string? Specialization { get; set; }
     public string Status { get; set; }
 }

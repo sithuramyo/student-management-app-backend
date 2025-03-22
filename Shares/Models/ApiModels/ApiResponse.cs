@@ -6,8 +6,8 @@ namespace Shares.Models.ApiModels;
 public class ApiResponse<T>
 {
     public bool IsSuccess { get; set; }
-    
-    public string Message { get; set; }
+
+    public string Message { get; set; } = null!;
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public T? Data { get; set; }
@@ -16,7 +16,7 @@ public class ApiResponse<T>
     public int StatusCode { get; set; }
     
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-    public List<string> Errors { get; set; }
+    public List<string>? Errors { get; set; }
 
     public static ApiResponse<T> Success(T data, string message = "Success")
     {

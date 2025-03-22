@@ -14,7 +14,7 @@ public class ApiResponse<T>
 
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public int StatusCode { get; set; }
-    
+
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public List<string>? Errors { get; set; }
 
@@ -26,25 +26,25 @@ public class ApiResponse<T>
     public static ApiResponse<T> Created(string message)
     {
         return new ApiResponse<T>
-            { IsSuccess = true, Message = $"{message} is created", StatusCode = (int)HttpStatusCode.OK };
+        { IsSuccess = true, Message = $"{message} is created", StatusCode = (int)HttpStatusCode.OK };
     }
 
     public static ApiResponse<T> Updated(string message)
     {
         return new ApiResponse<T>
-            { IsSuccess = true, Message = $"{message} is updated", StatusCode = (int)HttpStatusCode.OK };
+        { IsSuccess = true, Message = $"{message} is updated", StatusCode = (int)HttpStatusCode.OK };
     }
 
     public static ApiResponse<T> Deleted(string message)
     {
         return new ApiResponse<T>
-            { IsSuccess = true, Message = $"{message} is deleted", StatusCode = (int)HttpStatusCode.OK };
+        { IsSuccess = true, Message = $"{message} is deleted", StatusCode = (int)HttpStatusCode.OK };
     }
 
     public static ApiResponse<T> BadRequest(string message)
     {
         return new ApiResponse<T>
-            { IsSuccess = false, Message = message, StatusCode = (int)HttpStatusCode.BadRequest };
+        { IsSuccess = false, Message = message, StatusCode = (int)HttpStatusCode.BadRequest };
     }
 
     public static ApiResponse<T> NotFound(string message)

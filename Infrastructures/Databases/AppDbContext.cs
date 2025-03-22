@@ -12,8 +12,8 @@ namespace Infrastructures.Databases;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
-    
-    
+
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -28,8 +28,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             }
         );
     }
-    
-    
+
+
     #region System Users
 
     public virtual DbSet<SystemUser> SystemUsers { get; set; }

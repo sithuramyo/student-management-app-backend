@@ -1,6 +1,4 @@
-﻿using Infrastructures.DataModels.Base;
-
-namespace Infrastructures.DataModels.Persons;
+﻿namespace Infrastructures.DataModels.Persons;
 
 public class Student : BaseDataModel
 {

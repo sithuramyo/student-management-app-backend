@@ -1,4 +1,5 @@
-﻿using Interfaces.Features.Auth;
+﻿using Interfaces.Features.Academics.Departments;
+using Interfaces.Features.Auth;
 using Shares.Helpers;
 
 namespace Interfaces.Builders;
@@ -16,6 +17,12 @@ public static class ServicesInjection
         #region Auth
 
         services.AddScoped<IAuthService, AuthService>();
+
+        #endregion
+
+        #region Academics
+
+        services.AddScoped<IDepartmentService, DepartmentService>();
 
         #endregion
     }

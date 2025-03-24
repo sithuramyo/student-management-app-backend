@@ -1,5 +1,5 @@
-﻿using Interfaces.Features.Academics.Departments;
-using Interfaces.Features.Auth;
+﻿using Cores.Features.Academics.Departments;
+using Cores.Features.Auth;
 using Shares.Helpers;
 
 namespace Interfaces.Builders;

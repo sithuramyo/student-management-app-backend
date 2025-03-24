@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
+﻿using Infrastructures.Databases;
+using Microsoft.EntityFrameworkCore;
 using Shares.Helpers;
+using Shares.Models.ApiModels;
 using Shares.Models.Auth;
 
-namespace Interfaces.Features.Auth;
+namespace Cores.Features.Auth;
 
 public class AuthService(AppDbContext context, TokenHelper tokenHelper) : IAuthService
 {

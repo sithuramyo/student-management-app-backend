@@ -12,6 +12,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Cores\Cores.csproj" />
       <ProjectReference Include="..\Infrastructures\Infrastructures.csproj" />
       <ProjectReference Include="..\Shares\Shares.csproj" />
     </ItemGroup>

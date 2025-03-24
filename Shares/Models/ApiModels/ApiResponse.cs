@@ -26,25 +26,31 @@ public class ApiResponse<T>
     public static ApiResponse<T> Created(string message)
     {
         return new ApiResponse<T>
-        { IsSuccess = true, Message = $"{message} is created", StatusCode = (int)HttpStatusCode.OK };
+        { IsSuccess = true, Message = $"{message} is created" };
     }
 
     public static ApiResponse<T> Updated(string message)
     {
         return new ApiResponse<T>
-        { IsSuccess = true, Message = $"{message} is updated", StatusCode = (int)HttpStatusCode.OK };
+        { IsSuccess = true, Message = $"{message} is updated" };
     }
 
     public static ApiResponse<T> Deleted(string message)
     {
         return new ApiResponse<T>
-        { IsSuccess = true, Message = $"{message} is deleted", StatusCode = (int)HttpStatusCode.OK };
+        { IsSuccess = true, Message = $"{message} is deleted" };
     }
 
     public static ApiResponse<T> BadRequest(string message)
     {
         return new ApiResponse<T>
         { IsSuccess = false, Message = message, StatusCode = (int)HttpStatusCode.BadRequest };
+    }
+
+    public static ApiResponse<T> Conflict(string message)
+    {
+        return new ApiResponse<T>
+        { IsSuccess = false, Message = message, StatusCode = (int)HttpStatusCode.Conflict };
     }
 
     public static ApiResponse<T> NotFound(string message)

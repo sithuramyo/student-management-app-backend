@@ -1,6 +1,7 @@
-﻿using Shares.Models.Auth;
+﻿using Shares.Models.ApiModels;
+using Shares.Models.Auth;
 
-namespace Interfaces.Features.Auth;
+namespace Cores.Features.Auth;
 
 public interface IAuthService
 {

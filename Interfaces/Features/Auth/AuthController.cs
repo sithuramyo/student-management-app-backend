@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.Data;
+﻿using Cores.Features.Auth;
 using Shares.Models.Auth;
 
 namespace Interfaces.Features.Auth;

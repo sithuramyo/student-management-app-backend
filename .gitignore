@@ -49,7 +49,6 @@ NuGetScratch/
 .env.test
 
 # Docker specific files
-**/[Dd]ockerfile
 **/[Dd]ocker-compose*
 /.dockerignore
 

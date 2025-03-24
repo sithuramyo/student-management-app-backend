@@ -9,6 +9,7 @@ namespace Interfaces.Features.Academics.Departments;
 public class DepartmentController(IDepartmentService service) : BaseController
 {
     [HttpGet]
+    [ProducesResponseType(typeof(ApiResponse<PaginationResponse<DepartmentResponseModel>>),StatusCodes.Status200OK)]
     public async Task<ActionResult> List([FromQuery] PaginationRequest request)
     {
         var result = await service.ListAsync(request);
@@ -16,6 +17,7 @@ public class DepartmentController(IDepartmentService service) : BaseController
     }
 
     [HttpPost]
+    [ProducesResponseType(typeof(ApiResponse<NoResponseModel>),StatusCodes.Status200OK)]
     public async Task<ActionResult> Create(ApiRequest<CreateDepartmentRequestModel> request)
     {
         var result = await service.CreateAsync(request.Request);
@@ -23,6 +25,7 @@ public class DepartmentController(IDepartmentService service) : BaseController
     }
 
     [HttpGet("{id}")]
+    [ProducesResponseType(typeof(ApiResponse<DepartmentResponseModel>),StatusCodes.Status200OK)]
     public async Task<ActionResult> GetById(string id)
     {
         var result = await service.GetByIdAsync(id);
@@ -30,6 +33,7 @@ public class DepartmentController(IDepartmentService service) : BaseController
     }
 
     [HttpPut("{id}")]
+    [ProducesResponseType(typeof(ApiResponse<NoResponseModel>),StatusCodes.Status200OK)]
     public async Task<ActionResult> Update(string id, ApiRequest<UpdateDepartmentRequestModel> request)
     {
         var result = await service.UpdateAsync(id, request.Request);
@@ -37,6 +41,7 @@ public class DepartmentController(IDepartmentService service) : BaseController
     }
 
     [HttpDelete("{id}")]
+    [ProducesResponseType(typeof(ApiResponse<NoResponseModel>),StatusCodes.Status200OK)]
     public async Task<ActionResult> Delete(string id)
     {
         var result = await service.DeleteAsync(id);

@@ -3,6 +3,9 @@ using Interfaces.Builders;
 using Interfaces.Globals;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using HealthChecks.UI.Client;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -86,5 +89,9 @@ app.UseAuthorization();
 
 app.UseExceptionHandler(_ => { });
 app.MapGet("/", () => "Student Management API");
+app.MapHealthChecks("/health", new HealthCheckOptions
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 app.MapControllers();
 app.Run();

@@ -1,8 +1,4 @@
-﻿using Infrastructures.Databases;
-using Microsoft.EntityFrameworkCore;
-using Shares.Helpers;
-using Shares.Models.ApiModels;
-using Shares.Models.Auth;
+﻿using Shares.Models.Auth;
 
 namespace Cores.Features.Auth;
 

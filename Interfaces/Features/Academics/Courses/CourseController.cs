@@ -1,13 +1,12 @@
-﻿using Cores.Features.Academics.Departments;
-using Shares.Models.Academics.Departments;
+﻿using Cores.Features.Academics.Courses;
+using Shares.Models.Academics.Courses;
 
-namespace Interfaces.Features.Academics.Departments;
+namespace Interfaces.Features.Academics.Courses;
 
-[Authorize]
-public class DepartmentController(IDepartmentService service) : BaseController
+public class CourseController(ICourseService service) : BaseController
 {
     [HttpGet]
-    [ProducesResponseType(typeof(ApiResponse<PaginationResponse<DepartmentResponseModel>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<PaginationResponse<CourseResponseModel>>), StatusCodes.Status200OK)]
     public async Task<ActionResult> List([FromQuery] PaginationRequest request)
     {
         var result = await service.ListAsync(request);
@@ -16,14 +15,14 @@ public class DepartmentController(IDepartmentService service) : BaseController
 
     [HttpPost]
     [ProducesResponseType(typeof(ApiResponse<NoResponseModel>), StatusCodes.Status200OK)]
-    public async Task<ActionResult> Create(ApiRequest<CreateDepartmentRequestModel> request)
+    public async Task<ActionResult> Create(ApiRequest<CreateCourseRequestModel> request)
     {
         var result = await service.CreateAsync(request.Request);
         return result.IsSuccess ? Ok(result) : StatusCode(result.StatusCode, result);
     }
 
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(ApiResponse<DepartmentResponseModel>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<CourseResponseModel>), StatusCodes.Status200OK)]
     public async Task<ActionResult> GetById(string id)
     {
         var result = await service.GetByIdAsync(id);
@@ -32,7 +31,7 @@ public class DepartmentController(IDepartmentService service) : BaseController
 
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(ApiResponse<NoResponseModel>), StatusCodes.Status200OK)]
-    public async Task<ActionResult> Update(string id, ApiRequest<UpdateDepartmentRequestModel> request)
+    public async Task<ActionResult> Update(string id, ApiRequest<UpdateCourseRequestModel> request)
     {
         var result = await service.UpdateAsync(id, request.Request);
         return result.IsSuccess ? Ok(result) : StatusCode(result.StatusCode, result);

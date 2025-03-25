@@ -5,5 +5,5 @@ global using Microsoft.AspNetCore.Mvc;
 global using Shares.Models.ApiModels;
 global using Interfaces.Features.Base;
 global using Shares.Models.Paginations;
-global using Shares.Extensions;
+global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.EntityFrameworkCore;

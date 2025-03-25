@@ -1,11 +1,5 @@
-﻿using Infrastructures.Databases;
-using Infrastructures.DataModels.Academics;
-using Microsoft.EntityFrameworkCore;
-using Shares.Constants;
-using Shares.Extensions;
+﻿using Infrastructures.DataModels.Academics;
 using Shares.Models.Academics.Departments;
-using Shares.Models.ApiModels;
-using Shares.Models.Paginations;
 
 namespace Cores.Features.Academics.Departments;
 
@@ -14,7 +8,6 @@ public class DepartmentService(AppDbContext context) : IDepartmentService
     public async Task<ApiResponse<PaginationResponse<DepartmentResponseModel>>> ListAsync(
         PaginationRequest request)
     {
-        PaginationResponse<DepartmentResponseModel> response = new();
         var query = context.Departments.AsQueryable();
         if (!string.IsNullOrWhiteSpace(request.Search))
         {
@@ -49,10 +42,10 @@ public class DepartmentService(AppDbContext context) : IDepartmentService
             return ApiResponse<NoResponseModel>.Conflict("Department already exists");
         }
 
-        var countAsync = await context.Departments.CountAsync();
+        var count = await context.Departments.CountAsync();
         Department data = new()
         {
-            Code = Codes.DepartmentCode.GetCode(countAsync, Codes.DepartmentDigit),
+            Code = Codes.DepartmentCode.GetCode(count, Codes.DepartmentDigit),
             Name = request.Name,
             Description = request.Description,
             PhoneNumber = request.PhoneNumber,
@@ -94,7 +87,12 @@ public class DepartmentService(AppDbContext context) : IDepartmentService
             return ApiResponse<NoResponseModel>.NotFound("Department not found");
         }
 
-        data.Id = id;
+        var isExist = await context.Departments.AnyAsync(d => d.Name == request.Name && !d.IsDeleted && d.Id != id);
+        if (isExist)
+        {
+            return ApiResponse<NoResponseModel>.Conflict("Department already exists");
+        }
+
         data.Name = request.Name;
         data.Description = request.Description;
         data.PhoneNumber = request.PhoneNumber;

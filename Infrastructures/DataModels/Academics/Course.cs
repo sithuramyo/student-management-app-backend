@@ -12,5 +12,4 @@ public class Course : BaseDataModel
     public int? MaxEnrollment { get; set; }
     public string? SyllabusUrl { get; set; }
     public string? DeliveryMode { get; set; }
-    public string? Prerequisite { get; set; }
 }

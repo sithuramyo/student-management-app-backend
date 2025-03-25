@@ -1,5 +1,7 @@
-﻿using Cores.Features.Academics.Departments;
+﻿using Cores.Features.Academics.Courses;
+using Cores.Features.Academics.Departments;
 using Cores.Features.Auth;
+using Cores.Features.Commons;
 using Shares.Helpers;
 
 namespace Interfaces.Builders;
@@ -20,9 +22,16 @@ public static class ServicesInjection
 
         #endregion
 
+        #region Commons
+
+        services.AddScoped<ICommonService, CommonService>();
+
+        #endregion
+
         #region Academics
 
         services.AddScoped<IDepartmentService, DepartmentService>();
+        services.AddScoped<ICourseService, CourseService>();
 
         #endregion
     }

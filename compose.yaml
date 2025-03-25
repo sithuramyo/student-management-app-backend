@@ -1,0 +1,14 @@
+﻿services:
+  studify:
+    container_name: studify-api
+    image: studify
+    build:
+      context: .
+      dockerfile: Interfaces/Dockerfile
+    ports:
+      - "5000:5000"
+    networks:
+      - studify-network
+networks:
+  studify-network:
+    external: true

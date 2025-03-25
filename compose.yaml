@@ -2,6 +2,7 @@
   studify:
     container_name: studify-api
     image: studify
+    restart: always
     build:
       context: .
       dockerfile: Interfaces/Dockerfile

@@ -8,7 +8,7 @@ public class DepartmentService(AppDbContext context) : IDepartmentService
     public async Task<ApiResponse<PaginationResponse<DepartmentResponseModel>>> ListAsync(
         PaginationRequest request)
     {
-        var query = context.Departments.AsQueryable();
+        var query = context.Departments.Where(d => !d.IsDeleted).AsQueryable();
         if (!string.IsNullOrWhiteSpace(request.Search))
         {
             query = query.Where(d =>

@@ -7,7 +7,7 @@ public class CourseService(AppDbContext context) : ICourseService
 {
     public async Task<ApiResponse<PaginationResponse<CourseResponseModel>>> ListAsync(PaginationRequest request)
     {
-        var query = context.Courses.AsNoTracking();
+        var query = context.Courses.Where(c => !c.IsDeleted).AsNoTracking();
 
         if (!string.IsNullOrWhiteSpace(request.Search))
         {

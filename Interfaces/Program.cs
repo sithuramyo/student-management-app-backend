@@ -73,10 +73,10 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
         {
             IsSuccess = false,
             Message = "Validation failed",
-            StatusCode = StatusCodes.Status400BadRequest,
+            StatusCode = StatusCodes.Status422UnprocessableEntity,
             Errors = errors
         };
-        return new BadRequestObjectResult(apiResponse);
+        return new UnprocessableEntityObjectResult(apiResponse);
     };
 });
 

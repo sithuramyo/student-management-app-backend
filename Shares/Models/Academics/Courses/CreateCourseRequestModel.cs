@@ -4,6 +4,7 @@ namespace Shares.Models.Academics.Courses;
 
 public class CreateCourseRequestModel
 {
+    public string[]? PrerequisiteIds { get; set; }
     public string Profile { get; set; }
     public string DepartmentId { get; set; }
     [Required(ErrorMessage = "Course Code is required")]

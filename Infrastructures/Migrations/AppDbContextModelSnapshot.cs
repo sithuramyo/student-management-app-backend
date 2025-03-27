@@ -583,8 +583,15 @@ namespace Infrastructures.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Profile")
                         .HasColumnType("text");
 
                     b.Property<string>("Specialization")
@@ -624,12 +631,12 @@ namespace Infrastructures.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Relationship")
                         .IsRequired()
@@ -672,6 +679,10 @@ namespace Infrastructures.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
@@ -736,12 +747,12 @@ namespace Infrastructures.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d115bd7f-6845-4a0d-b66a-38280dff2a5b",
-                            CreatedAt = new DateTime(2025, 3, 27, 14, 4, 25, 290, DateTimeKind.Local).AddTicks(7968),
+                            Id = "a58408fa-50a5-4f04-b13d-bbbbd660f66d",
+                            CreatedAt = new DateTime(2025, 3, 27, 21, 20, 51, 951, DateTimeKind.Local).AddTicks(5272),
                             Email = "superadmin@studify.com",
                             IsDeleted = false,
                             Name = "Super Admin",
-                            Password = "$2a$11$hev3.7AGdOTVFJKZrkKCEONteHQPO7EZCjvqR9Xr1UGPWsIGNZMMy",
+                            Password = "$2a$11$Pe.Wu.3MDuFXadYMNBe0YOKu31mAa8Cy1OLQUKzbYpsZ81BNlkxD.",
                             Role = "SuperAdmin"
                         });
                 });

@@ -5,4 +5,5 @@ global using Shares.Helpers;
 global using Microsoft.EntityFrameworkCore;
 global using Shares.Extensions;
 global using Shares.Constants;
+global using Shares.Enums;
 

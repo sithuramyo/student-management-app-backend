@@ -1,5 +1,4 @@
-﻿using System.Linq.Dynamic.Core;
-using Infrastructures.DataModels.Academics;
+﻿using Infrastructures.DataModels.Academics;
 using Infrastructures.DataModels.ManyToMany;
 using Shares.Models.Academics.Courses;
 

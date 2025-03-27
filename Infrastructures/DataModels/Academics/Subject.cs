@@ -2,7 +2,7 @@
 
 public class Subject : BaseDataModel
 {
-    public string CourseCode { get; set; } = null!;
+    public string CourseId { get; set; } = null!;
     public string? Profile { get; set; }
     public string Code { get; set; } = null!;
     public string Name { get; set; } = null!;

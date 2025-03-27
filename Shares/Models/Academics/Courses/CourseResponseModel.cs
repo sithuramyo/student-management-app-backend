@@ -6,6 +6,8 @@ public class CourseResponseModel
 {
     public string Id { get; set; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+    public string[]? PrerequisiteIds { get; set; }
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public string? DepartmentName { get; set; }
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
     public string? DepartmentId { get; set; }

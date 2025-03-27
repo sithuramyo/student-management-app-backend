@@ -1,4 +1,6 @@
-﻿using Infrastructures.DataModels.Academics;
+﻿using System.Linq.Dynamic.Core;
+using Infrastructures.DataModels.Academics;
+using Infrastructures.DataModels.ManyToMany;
 using Shares.Models.Academics.Courses;
 
 namespace Cores.Features.Academics.Courses;
@@ -51,6 +53,7 @@ public class CourseService(AppDbContext context) : ICourseService
             return ApiResponse<NoResponseModel>.Conflict("Course already exists");
         }
 
+        await using var transaction = await context.Database.BeginTransactionAsync();
         Course data = new()
         {
             Profile = request.Profile,
@@ -64,9 +67,18 @@ public class CourseService(AppDbContext context) : ICourseService
             SyllabusUrl = request.SyllabusUrl,
             DeliveryMode = request.DeliveryMode,
         };
-
         await context.Courses.AddAsync(data);
+
+        if (request.PrerequisiteIds is { Length: > 0 })
+        {
+            List<CoursePrerequisite> prerequisites = [];
+            prerequisites.AddRange(request.PrerequisiteIds.Select(prerequisiteId => new CoursePrerequisite
+            { CourseId = data.Id, PrerequisiteId = prerequisiteId }));
+            await context.CoursePrerequisites.AddRangeAsync(prerequisites);
+        }
+
         await context.SaveChangesAsync();
+        await transaction.CommitAsync();
         return ApiResponse<NoResponseModel>.Success(response);
     }
 
@@ -79,7 +91,12 @@ public class CourseService(AppDbContext context) : ICourseService
             return ApiResponse<CourseResponseModel>.NotFound("Course not found");
         }
 
+        var prerequisiteIds = await context.CoursePrerequisites.Where(p => p.CourseId == id && !p.IsDeleted)
+            .Select(p => p.PrerequisiteId)
+            .ToArrayAsync();
+
         response.Id = data.Id;
+        response.PrerequisiteIds = prerequisiteIds;
         response.DepartmentId = data.DepartmentId;
         response.Code = data.Code;
         response.Profile = data.Profile;
@@ -111,6 +128,28 @@ public class CourseService(AppDbContext context) : ICourseService
             return ApiResponse<NoResponseModel>.Conflict("Course already exists");
         }
 
+        await using var transaction = await context.Database.BeginTransactionAsync();
+        if (request.PrerequisiteIds is { Length: > 0 })
+        {
+            var oldPrerequisites =
+                await context.CoursePrerequisites.Where(p => p.CourseId == id && !p.IsDeleted).ToListAsync();
+            if (oldPrerequisites is { Count: > 0 })
+            {
+                foreach (var oldPrerequisite in oldPrerequisites)
+                {
+                    oldPrerequisite.IsDeleted = true;
+                }
+
+                context.CoursePrerequisites.UpdateRange(oldPrerequisites);
+                await context.SaveChangesAsync();
+            }
+
+            List<CoursePrerequisite> prerequisites = [];
+            prerequisites.AddRange(request.PrerequisiteIds.Select(prerequisiteId => new CoursePrerequisite
+            { CourseId = data.Id, PrerequisiteId = prerequisiteId }));
+            await context.CoursePrerequisites.AddRangeAsync(prerequisites);
+        }
+
         data.DepartmentId = request.DepartmentId;
         data.Profile = request.Profile;
         data.Code = request.Code;
@@ -123,7 +162,7 @@ public class CourseService(AppDbContext context) : ICourseService
         data.DeliveryMode = request.DeliveryMode;
         context.Courses.Update(data);
         await context.SaveChangesAsync();
-
+        await transaction.CommitAsync();
         return ApiResponse<NoResponseModel>.Success(response);
     }
 

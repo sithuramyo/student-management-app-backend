@@ -21,4 +21,13 @@ public class CommonController(ICommonService service) : BaseController
         var result = await service.GetCoursesAsync();
         return result.IsSuccess ? Ok(result) : StatusCode(result.StatusCode, result);
     }
+
+    [HttpGet("prerequisites")]
+    [ProducesResponseType(typeof(ApiResponse<PrerequisiteResponseModel>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetPrerequisites()
+    {
+        var result = await service.GetPrerequisitesAsync();
+        return result.IsSuccess ? Ok(result) : StatusCode(result.StatusCode, result);
+    }
+
 }

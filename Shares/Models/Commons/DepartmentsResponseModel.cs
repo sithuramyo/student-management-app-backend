@@ -1,6 +1,4 @@
-﻿using Shares.Models.Academics.Departments;
-
-namespace Shares.Models.Commons;
+﻿namespace Shares.Models.Commons;
 
 public class DepartmentsResponseModel
 {

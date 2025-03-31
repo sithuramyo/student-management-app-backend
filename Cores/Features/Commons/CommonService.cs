@@ -1,5 +1,4 @@
-﻿using System.Linq.Dynamic.Core;
-using Shares.Models.Commons;
+﻿using Shares.Models.Commons;
 
 namespace Cores.Features.Commons;
 
@@ -33,6 +32,24 @@ public class CommonService(AppDbContext context) : ICommonService
                 Title = c.Title,
                 Profile = c.Profile,
             }).ToListAsync();
+        response.Courses = courses;
         return ApiResponse<CoursesResponseModel>.Success(response);
+    }
+
+    public async Task<ApiResponse<PrerequisiteResponseModel>> GetPrerequisitesAsync()
+    {
+        PrerequisiteResponseModel response = new();
+        var prerequisites = await context.Prerequisites
+            .Where(p => !p.IsDeleted)
+            .Select(p => new Prerequisites
+            {
+                Id = p.Id,
+                RequiredCourseCode = p.RequiredCourseCode,
+                RequiredMinimumGrade = p.RequiredMinimumGrade ?? "N/A",
+                IsMandatory = p.IsMandatory,
+                Notes = p.Notes ?? "N/A",
+            }).ToListAsync();
+        response.Prerequisites = prerequisites;
+        return ApiResponse<PrerequisiteResponseModel>.Success(response);
     }
 }

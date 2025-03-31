@@ -23,7 +23,7 @@ public class CommonController(ICommonService service) : BaseController
     }
 
     [HttpGet("prerequisites")]
-    [ProducesResponseType(typeof(ApiResponse<PrerequisiteResponseModel>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<PrerequisitesResponseModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetPrerequisites()
     {
         var result = await service.GetPrerequisitesAsync();

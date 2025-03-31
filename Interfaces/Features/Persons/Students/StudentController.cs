@@ -3,6 +3,7 @@ using Shares.Models.Persons.Students;
 
 namespace Interfaces.Features.Persons.Students;
 
+[Authorize]
 public class StudentController(IStudentService service) : BaseController
 {
     [HttpGet]

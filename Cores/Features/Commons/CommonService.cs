@@ -36,9 +36,9 @@ public class CommonService(AppDbContext context) : ICommonService
         return ApiResponse<CoursesResponseModel>.Success(response);
     }
 
-    public async Task<ApiResponse<PrerequisiteResponseModel>> GetPrerequisitesAsync()
+    public async Task<ApiResponse<PrerequisitesResponseModel>> GetPrerequisitesAsync()
     {
-        PrerequisiteResponseModel response = new();
+        PrerequisitesResponseModel response = new();
         var prerequisites = await context.Prerequisites
             .Where(p => !p.IsDeleted)
             .Select(p => new Prerequisites
@@ -50,6 +50,6 @@ public class CommonService(AppDbContext context) : ICommonService
                 Notes = p.Notes ?? "N/A",
             }).ToListAsync();
         response.Prerequisites = prerequisites;
-        return ApiResponse<PrerequisiteResponseModel>.Success(response);
+        return ApiResponse<PrerequisitesResponseModel>.Success(response);
     }
 }

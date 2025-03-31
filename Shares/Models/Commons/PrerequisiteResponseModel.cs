@@ -1,6 +1,6 @@
 ﻿namespace Shares.Models.Commons;
 
-public class PrerequisiteResponseModel
+public class PrerequisitesResponseModel
 {
     public List<Prerequisites> Prerequisites { get; set; } = [];
 }

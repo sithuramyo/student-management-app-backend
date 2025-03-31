@@ -3,6 +3,7 @@ using Cores.Features.Academics.Departments;
 using Cores.Features.Academics.Prerequisites;
 using Cores.Features.Auth;
 using Cores.Features.Commons;
+using Cores.Features.Persons.Students;
 using Shares.Helpers;
 
 namespace Interfaces.Builders;
@@ -34,6 +35,12 @@ public static class ServicesInjection
         services.AddScoped<IDepartmentService, DepartmentService>();
         services.AddScoped<ICourseService, CourseService>();
         services.AddScoped<IPrerequisiteService, PrerequisiteService>();
+
+        #endregion
+
+        #region Persons
+
+        services.AddScoped<IStudentService, StudentService>();
 
         #endregion
     }

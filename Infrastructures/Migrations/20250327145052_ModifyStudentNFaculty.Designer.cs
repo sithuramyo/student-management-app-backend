@@ -3,6 +3,7 @@ using System;
 using Infrastructures.Databases;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructures.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250327145052_ModifyStudentNFaculty")]
+    partial class ModifyStudentNFaculty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,7 +115,7 @@ namespace Infrastructures.Migrations
                     b.Property<TimeOnly>("EndTime")
                         .HasColumnType("time without time zone");
 
-                    b.Property<string>("FacultyId")
+                    b.Property<string>("FacultyCode")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -330,6 +333,46 @@ namespace Infrastructures.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Prerequisites");
+                });
+
+            modelBuilder.Entity("Infrastructures.DataModels.Academics.Subject", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CourseId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Level")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Profile")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Subjects");
                 });
 
             modelBuilder.Entity("Infrastructures.DataModels.Communications.ChatMessage", b =>
@@ -707,12 +750,12 @@ namespace Infrastructures.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "799cd6f1-7ad7-4035-a7b6-e382b70941b9",
-                            CreatedAt = new DateTime(2025, 3, 27, 22, 11, 39, 959, DateTimeKind.Local).AddTicks(4883),
+                            Id = "a58408fa-50a5-4f04-b13d-bbbbd660f66d",
+                            CreatedAt = new DateTime(2025, 3, 27, 21, 20, 51, 951, DateTimeKind.Local).AddTicks(5272),
                             Email = "superadmin@studify.com",
                             IsDeleted = false,
                             Name = "Super Admin",
-                            Password = "$2a$11$DcAQjac.ikxUWxgTO.Edde4izoLBorbld.1jRSFUTdiR6tVmm6QTK",
+                            Password = "$2a$11$Pe.Wu.3MDuFXadYMNBe0YOKu31mAa8Cy1OLQUKzbYpsZ81BNlkxD.",
                             Role = "SuperAdmin"
                         });
                 });

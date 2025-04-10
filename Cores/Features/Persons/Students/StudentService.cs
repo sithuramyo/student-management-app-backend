@@ -52,7 +52,8 @@ public class StudentService(AppDbContext context) : IStudentService
             Name = request.StudentInfo.Name,
             Email = request.LoginInfo.Email,
             Password = request.LoginInfo.Password,
-            Role = SystemUserRole.Student.ToString()
+            Role = SystemUserRole.Student.ToString(),
+            Profile = request.StudentInfo.Profile
         };
         await context.SystemUsers.AddAsync(systemUser);
         var studentCount = await context.Students.CountAsync();

@@ -4,14 +4,15 @@ using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Shares.Models.ApiModels;
+using Shares.Models.Auth;
 
 namespace Shares.Helpers;
 
 public class TokenHelper(IConfiguration configuration)
 {
-    public TokenResponse GenerateToken(string id, string username, string role)
+    public TokenResponse GenerateToken(TokenModel tokenModel)
     {
-        TokenResponse response = new TokenResponse();
+        TokenResponse response = new();
         var issuer = configuration["Jwt:Issuer"];
         var audience = configuration["Jwt:Audience"];
         var secretKey = configuration["Jwt:Secret"];
@@ -32,11 +33,13 @@ public class TokenHelper(IConfiguration configuration)
 
         var claims = new List<Claim>
         {
-            new(JwtRegisteredClaimNames.Sub, id),
-            new(JwtRegisteredClaimNames.Name, username),
+            new(JwtRegisteredClaimNames.Sub, tokenModel.Id),
+            new(JwtRegisteredClaimNames.Name, tokenModel.Name),
+            new(JwtRegisteredClaimNames.Email, tokenModel.Email),
+            new("profile", tokenModel.Profile),
             new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             new(JwtRegisteredClaimNames.Iat, issuedAtTime.ToString(), ClaimValueTypes.Integer64),
-            new(JwtRegisteredClaimNames.Typ, role),
+            new(JwtRegisteredClaimNames.Typ, tokenModel.Role),
             new(JwtRegisteredClaimNames.Nbf, issuedAtTime.ToString(), ClaimValueTypes.Integer64),
             new(JwtRegisteredClaimNames.Exp, expirationTime.ToString(), ClaimValueTypes.Integer64),
             new(JwtRegisteredClaimNames.Iss, issuer),

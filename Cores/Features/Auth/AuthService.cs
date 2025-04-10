@@ -14,9 +14,17 @@ public class AuthService(AppDbContext context, TokenHelper tokenHelper) : IAuthS
             return ApiResponse<AuthResponseModel>.NotFound("User does not exist");
         }
 
-        var tokenModel = tokenHelper.GenerateToken(data.Id, data.Name, data.Role);
-        response.AccessToken = tokenModel.AccessToken;
-        response.ExpiresIn = tokenModel.ExpiresIn;
+        TokenModel tokenModel = new()
+        {
+            Id = data.Id,
+            Name = data.Name,
+            Email = data.Email,
+            Role = data.Role,
+            Profile = data.Profile ?? string.Empty,
+        };
+        var tokenResModel = tokenHelper.GenerateToken(tokenModel);
+        response.AccessToken = tokenResModel.AccessToken;
+        response.ExpiresIn = tokenResModel.ExpiresIn;
         return ApiResponse<AuthResponseModel>.Success(response);
     }
 }

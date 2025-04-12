@@ -51,11 +51,12 @@ public class StudentService(AppDbContext context) : IStudentService
         {
             Name = request.StudentInfo.Name,
             Email = request.LoginInfo.Email,
-            Password = request.LoginInfo.Password,
+            Password = PasswordHelper.HashPassword(request.LoginInfo.Password),
             Role = SystemUserRole.Student.ToString(),
             Profile = request.StudentInfo.Profile
         };
         await context.SystemUsers.AddAsync(systemUser);
+        await context.SaveChangesAsync();
         var studentCount = await context.Students.CountAsync();
         Student students = new()
         {
@@ -70,6 +71,7 @@ public class StudentService(AppDbContext context) : IStudentService
             Profile = request.StudentInfo.Profile,
         };
         await context.Students.AddAsync(students);
+        await context.SaveChangesAsync();
         Guardian guardian = new()
         {
             StudentId = students.Id,
@@ -81,6 +83,7 @@ public class StudentService(AppDbContext context) : IStudentService
         };
         await context.Guardians.AddAsync(guardian);
         await context.SaveChangesAsync();
+        await transaction.CommitAsync();
         return ApiResponse<NoResponseModel>.Success(response);
     }
 

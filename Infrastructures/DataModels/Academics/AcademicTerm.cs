@@ -6,5 +6,4 @@ public class AcademicTerm : BaseDataModel
     public string Name { get; set; } = null!; // e.g., Spring 2025
     public DateOnly StartDate { get; set; }
     public DateOnly EndDate { get; set; }
-    public bool IsCurrentTerm { get; set; }
 }

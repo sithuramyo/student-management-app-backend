@@ -135,7 +135,7 @@ public class StudentService(AppDbContext context) : IStudentService
         return ApiResponse<NoResponseModel>.Success(response);
     }
 
-    public async Task<ApiResponse<NoResponseModel>> UpdateAsync(string id,StudentStatus studentStatus)
+    public async Task<ApiResponse<NoResponseModel>> UpdateAsync(string id, StudentStatus studentStatus)
     {
         NoResponseModel response = new();
         var data = await context.Students.FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);

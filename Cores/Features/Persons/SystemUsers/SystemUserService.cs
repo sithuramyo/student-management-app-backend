@@ -101,7 +101,7 @@ public class SystemUserService(AppDbContext context) : ISystemUserService
         {
             return ApiResponse<NoResponseModel>.Conflict("System User already exists");
         }
-        
+
         var data = context.SystemUsers.FirstOrDefault(x => x.Id == id && !x.IsDeleted);
 
         if (data is null)

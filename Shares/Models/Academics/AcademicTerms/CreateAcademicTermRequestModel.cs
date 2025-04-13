@@ -16,4 +16,4 @@ public class CreateAcademicTermRequestModel
     public DateOnly EndDate { get; set; }
 }
 
-public class UpdateAcademicTermRequestModel : CreateAcademicTermRequestModel{}
+public class UpdateAcademicTermRequestModel : CreateAcademicTermRequestModel { }

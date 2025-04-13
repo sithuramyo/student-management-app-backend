@@ -3,7 +3,7 @@ using Shares.Models.Persons.SystemUsers;
 
 namespace Cores.Features.Persons.SystemUsers;
 
-public interface ISystemUserService : IServiceWrapper<SystemUserResponseModel,CreateSystemUserRequestModel,UpdateSystemUserRequestModel>
+public interface ISystemUserService : IServiceWrapper<SystemUserResponseModel, CreateSystemUserRequestModel, UpdateSystemUserRequestModel>
 {
-    
+
 }

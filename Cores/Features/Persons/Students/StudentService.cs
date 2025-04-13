@@ -100,8 +100,8 @@ public class StudentService(AppDbContext context) : IStudentService
         response.Name = data.Name;
         response.Profile = data.Profile ?? "N/A";
         response.BirthDate = data.BirthDate;
-        response.Gender = data.Gender;
-        response.Status = data.Status;
+        response.Gender = ((int)Enum.Parse<Gender>(data.Gender)).ToString();
+        response.Status = ((int)Enum.Parse<StudentStatus>(data.Status)).ToString();
         return ApiResponse<StudentResponseModel>.Success(response);
     }
 
@@ -143,6 +143,7 @@ public class StudentService(AppDbContext context) : IStudentService
         {
             return ApiResponse<NoResponseModel>.NotFound("Student not found");
         }
+
         data.Status = studentStatus.ToString();
         context.Students.Update(data);
         await context.SaveChangesAsync();

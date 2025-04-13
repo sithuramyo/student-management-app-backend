@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Shares.Attributes;
+using Shares.Enums;
 
 namespace Shares.Models.Persons.Students;
 
@@ -32,20 +34,23 @@ public class StudentInfoModel
     public string Name { get; set; }
 
     [Required(ErrorMessage = "Birth date is required")]
+    [PastDateOnly(ErrorMessage = "Birth date cannot be in the future")]
     public DateOnly BirthDate { get; set; }
 
     [Required(ErrorMessage = "Gender is required")]
-    public string Gender { get; set; }
+    [EnumDataType(typeof(Gender), ErrorMessage = "Invalid gender")]
+    public Gender Gender { get; set; }
 
     [Required(ErrorMessage = "Phone number is required")]
-    [Phone(ErrorMessage = "Invalid phone number format")]
+    [RegularExpression(@"^(\+?95|09)\d{7,9}$", ErrorMessage = "Enter a valid Myanmar phone number")]
     public string PhoneNumber { get; set; }
 
     [Required(ErrorMessage = "Address is required")]
     public string Address { get; set; }
 
     [Required(ErrorMessage = "Status is required")]
-    public string Status { get; set; }
+    [EnumDataType(typeof(StudentStatus), ErrorMessage = "Invalid status")]
+    public StudentStatus Status { get; set; }
 
     public string? Profile { get; set; }
 }
@@ -59,7 +64,7 @@ public class GuardianInfoModel
     public string Relationship { get; set; }
 
     [Required(ErrorMessage = "Contact number is required")]
-    [Phone(ErrorMessage = "Invalid phone number format")]
+    [RegularExpression(@"^(\+?95|09)\d{7,9}$", ErrorMessage = "Enter a valid Myanmar phone number")]
     public string ContactNumber { get; set; }
 
     [EmailAddress(ErrorMessage = "Invalid email format")]

@@ -1,13 +1,12 @@
-﻿using Cores.Features.Persons.Students;
-using Shares.Models.Persons.Students;
+﻿using Cores.Features.Persons.Faculties;
+using Shares.Models.Persons.Faculties;
 
-namespace Interfaces.Features.Persons.Students;
+namespace Interfaces.Features.Persons.Faculties;
 
-[Authorize]
-public class StudentController(IStudentService service) : BaseController
+public class FacultyController(IFacultyService service) : BaseController
 {
     [HttpGet]
-    [ProducesResponseType(typeof(ApiResponse<PaginationResponse<StudentResponseModel>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<PaginationResponse<FacultyResponseModel>>), StatusCodes.Status200OK)]
     public async Task<ActionResult> List([FromQuery] PaginationRequest request)
     {
         var result = await service.ListAsync(request);
@@ -16,14 +15,14 @@ public class StudentController(IStudentService service) : BaseController
 
     [HttpPost]
     [ProducesResponseType(typeof(ApiResponse<NoResponseModel>), StatusCodes.Status200OK)]
-    public async Task<ActionResult> Create(ApiRequest<CreateStudentRequestModel> request)
+    public async Task<ActionResult> Create(ApiRequest<CreateFacultyRequestModel> request)
     {
         var result = await service.CreateAsync(request.Request);
         return result.IsSuccess ? Ok(result) : StatusCode(result.StatusCode, result);
     }
 
     [HttpGet("{id}")]
-    [ProducesResponseType(typeof(ApiResponse<StudentResponseModel>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<FacultyResponseModel>), StatusCodes.Status200OK)]
     public async Task<ActionResult> GetById(string id)
     {
         var result = await service.GetByIdAsync(id);
@@ -32,7 +31,7 @@ public class StudentController(IStudentService service) : BaseController
 
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(ApiResponse<NoResponseModel>), StatusCodes.Status200OK)]
-    public async Task<ActionResult> Update(string id, ApiRequest<UpdateStudentRequestModel> request)
+    public async Task<ActionResult> Update(string id, ApiRequest<UpdateFacultyRequestModel> request)
     {
         var result = await service.UpdateAsync(id, request.Request);
         return result.IsSuccess ? Ok(result) : StatusCode(result.StatusCode, result);
@@ -40,7 +39,7 @@ public class StudentController(IStudentService service) : BaseController
 
     [HttpPatch("{id}")]
     [ProducesResponseType(typeof(ApiResponse<NoResponseModel>), StatusCodes.Status200OK)]
-    public async Task<ActionResult> Update(string id, ApiRequest<StudentStatus> request)
+    public async Task<ActionResult> Update(string id, ApiRequest<FacultyStatus> request)
     {
         var result = await service.UpdateAsync(id, request.Request);
         return result.IsSuccess ? Ok(result) : StatusCode(result.StatusCode, result);

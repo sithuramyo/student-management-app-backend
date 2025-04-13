@@ -39,7 +39,7 @@ public class StudentService(AppDbContext context) : IStudentService
         NoResponseModel response = new();
         var isExist = await context.Students.AnyAsync(x =>
             x.PhoneNumber == request.StudentInfo.PhoneNumber && x.Name == request.StudentInfo.Name &&
-            x.Gender == request.StudentInfo.Gender && !x.IsDeleted);
+            x.Gender == request.StudentInfo.Gender.ToString() && !x.IsDeleted);
 
         if (isExist)
         {
@@ -64,10 +64,10 @@ public class StudentService(AppDbContext context) : IStudentService
             Name = request.StudentInfo.Name,
             Code = Codes.StudentCode.GetCode(studentCount, Codes.StudentDigit),
             BirthDate = request.StudentInfo.BirthDate,
-            Gender = request.StudentInfo.Gender,
+            Gender = request.StudentInfo.Gender.ToString(),
             PhoneNumber = request.StudentInfo.PhoneNumber,
             Address = request.StudentInfo.Address,
-            Status = request.StudentInfo.Status,
+            Status = request.StudentInfo.Status.ToString(),
             Profile = request.StudentInfo.Profile,
         };
         await context.Students.AddAsync(students);
@@ -116,7 +116,7 @@ public class StudentService(AppDbContext context) : IStudentService
 
         var isExist = await context.Students.AnyAsync(x =>
             x.PhoneNumber == request.PhoneNumber && x.Name == request.Name &&
-            x.Gender == request.Gender && !x.IsDeleted && x.Id != id);
+            x.Gender == request.Gender.ToString() && !x.IsDeleted && x.Id != id);
 
         if (isExist)
         {
@@ -126,10 +126,24 @@ public class StudentService(AppDbContext context) : IStudentService
         data.Name = request.Name;
         data.Profile = request.Profile;
         data.BirthDate = request.BirthDate;
-        data.Gender = request.Gender;
-        data.Status = request.Status;
+        data.Gender = request.Gender.ToString();
+        data.Status = request.Status.ToString();
         data.PhoneNumber = request.PhoneNumber;
         data.Address = request.Address;
+        context.Students.Update(data);
+        await context.SaveChangesAsync();
+        return ApiResponse<NoResponseModel>.Success(response);
+    }
+
+    public async Task<ApiResponse<NoResponseModel>> UpdateAsync(string id,StudentStatus studentStatus)
+    {
+        NoResponseModel response = new();
+        var data = await context.Students.FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
+        if (data is null)
+        {
+            return ApiResponse<NoResponseModel>.NotFound("Student not found");
+        }
+        data.Status = studentStatus.ToString();
         context.Students.Update(data);
         await context.SaveChangesAsync();
         return ApiResponse<NoResponseModel>.Success(response);

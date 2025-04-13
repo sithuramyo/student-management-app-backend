@@ -91,8 +91,8 @@ public class FacultyService(AppDbContext context) : IFacultyService
         response.Name = data.Name;
         response.Profile = data.Profile ?? "N/A";
         response.BirthDate = data.BirthDate;
-        response.Gender = data.Gender;
-        response.Status = data.Status;
+        response.Gender = ((int)Enum.Parse<Gender>(data.Gender)).ToString();
+        response.Status = ((int)Enum.Parse<FacultyStatus>(data.Status)).ToString();
         response.PhoneNumber = data.PhoneNumber;
         response.Specialization = data.Specialization;
         return ApiResponse<FacultyResponseModel>.Success(response);

@@ -79,7 +79,7 @@ public class SystemUserService(AppDbContext context) : ISystemUserService
         response.Name = data.Name;
         response.Profile = data.Profile ?? "N/A";
         response.Email = data.Email;
-        response.Role = data.Role;
+        response.Role = ((int)Enum.Parse<SystemUserRole>(data.Role)).ToString();
         return ApiResponse<SystemUserResponseModel>.Success(response);
     }
 

@@ -3,6 +3,7 @@ using Shares.Models.Persons.SystemUsers;
 
 namespace Interfaces.Features.Persons.SystemUsers;
 
+[Authorize]
 public class SystemUserController(ISystemUserService service) : BaseController
 {
     [HttpGet]

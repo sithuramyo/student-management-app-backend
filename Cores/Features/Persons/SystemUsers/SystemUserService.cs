@@ -111,7 +111,9 @@ public class SystemUserService(AppDbContext context) : ISystemUserService
 
         data.Name = request.Name;
         data.Email = request.Email;
-        data.Password = PasswordHelper.HashPassword(request.Password);
+        data.Password = string.IsNullOrEmpty(request.Password)
+            ? data.Password
+            : PasswordHelper.HashPassword(request.Password);
         data.Role = request.Role.ToString();
         data.Profile = request.Profile;
         context.SystemUsers.Update(data);

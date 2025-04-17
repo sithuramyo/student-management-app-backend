@@ -54,6 +54,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     public virtual DbSet<Enrollment> Enrollments { get; set; }
     public virtual DbSet<GradeReport> GradeReports { get; set; }
     public virtual DbSet<Prerequisite> Prerequisites { get; set; }
+    public virtual DbSet<CourseOffering> CourseOfferings { get; set; }
 
     #endregion
 
@@ -67,8 +68,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     #endregion
 
     #region Many To Many
-
-    public virtual DbSet<CourseFaculty> CourseFaculties { get; set; }
     public virtual DbSet<CoursePrerequisite> CoursePrerequisites { get; set; }
 
     #endregion

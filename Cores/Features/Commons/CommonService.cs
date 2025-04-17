@@ -1,4 +1,5 @@
-﻿using Shares.Models.Commons;
+﻿using System.Linq.Dynamic.Core;
+using Shares.Models.Commons;
 
 namespace Cores.Features.Commons;
 
@@ -51,5 +52,35 @@ public class CommonService(AppDbContext context) : ICommonService
             }).ToListAsync();
         response.Prerequisites = prerequisites;
         return ApiResponse<PrerequisitesResponseModel>.Success(response);
+    }
+
+    public async Task<ApiResponse<FacultiesResponseModel>> GetFacultiesAsync()
+    {
+        FacultiesResponseModel response = new();
+        var faculties = await context.Faculties
+            .Where(f => !f.IsDeleted)
+            .Select(f => new Faculty
+            {
+                Id = f.Id,
+                Name = f.Name
+            }).ToListAsync();
+        response.Faculties = faculties;
+        return ApiResponse<FacultiesResponseModel>.Success(response);
+    }
+
+    public async Task<ApiResponse<AcademicTermsResponseModel>> GetAcademicTermsAsync()
+    {
+        AcademicTermsResponseModel response = new();
+        var academicTerms = await context.AcademicTerms
+            .Where(a => !a.IsDeleted)
+            .Select(a => new AcademicTerm
+            {
+                Id = a.Id,
+                Name = a.Name,
+                StartDate = a.StartDate,
+                EndDate = a.EndDate
+            }).ToListAsync();
+        response.AcademicTerms = academicTerms;
+        return ApiResponse<AcademicTermsResponseModel>.Success(response);
     }
 }

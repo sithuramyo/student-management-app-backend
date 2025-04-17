@@ -13,10 +13,14 @@ public class AcademicTermService(AppDbContext context) : IAcademicTermService
 
         if (!string.IsNullOrWhiteSpace(request.Search))
         {
+            var search = request.Search.ToLower();
             query = query.Where(d =>
-                EF.Functions.ILike(d.Name, $"%{request.Search}%") ||
-                EF.Functions.ILike(d.StartDate.ToString(), $"%{request.Search}%") ||
-                EF.Functions.ILike(d.EndDate.ToString(), $"%{request.Search}%"));
+                EF.Functions.ILike(d.Name, $"%{search}%"));
+
+            query = query.AsEnumerable().Where(d =>
+                    d.StartDate.ToString("yyyy-MM-dd").Contains(search, StringComparison.OrdinalIgnoreCase) ||
+                    d.EndDate.ToString("yyyy-MM-dd").Contains(search, StringComparison.OrdinalIgnoreCase))
+                .AsQueryable();
         }
 
         query = query.ApplySorting(request.SortBy, request.IsAscending);
@@ -28,8 +32,6 @@ public class AcademicTermService(AppDbContext context) : IAcademicTermService
             Profile = d.Profile ?? "N/A",
             StartDate = d.StartDate,
             EndDate = d.EndDate,
-            IsCurrentTerm = DateOnly.FromDateTime(DateTime.Today) >= d.StartDate
-                            && DateOnly.FromDateTime(DateTime.Today) <= d.EndDate
         });
 
         var paginated = await projectedQuery.ToPagedListAsync(request);

@@ -3,6 +3,7 @@ using System;
 using Infrastructures.Databases;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructures.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250416080154_CourseOffering")]
+    partial class CourseOffering
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -254,7 +257,11 @@ namespace Infrastructures.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<string>("CourseOfferingId")
+                    b.Property<string>("AcademicTermId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("CourseId")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -269,6 +276,10 @@ namespace Infrastructures.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("StudentId")
                         .IsRequired()
@@ -703,12 +714,12 @@ namespace Infrastructures.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b2a0d6f3-bbf7-47d8-9f22-792b7538e09e",
-                            CreatedAt = new DateTime(2025, 4, 17, 17, 37, 10, 653, DateTimeKind.Local).AddTicks(5092),
+                            Id = "d3b9fe14-49f4-43d3-aa3a-b0b03524f580",
+                            CreatedAt = new DateTime(2025, 4, 16, 14, 31, 53, 557, DateTimeKind.Local).AddTicks(4904),
                             Email = "superadmin@studify.com",
                             IsDeleted = false,
                             Name = "Super Admin",
-                            Password = "$2a$11$dkos/gGJIybVgwM05ZfoIe0gBx0nz4YNZTIm8TbattjVWug3ne7fS",
+                            Password = "$2a$11$Z6qSrN3M4rFomhHlTb2r/OGed616K/o5nVFhzyjDxC6dI3a3hq.Tq",
                             Role = "SuperAdmin"
                         });
                 });

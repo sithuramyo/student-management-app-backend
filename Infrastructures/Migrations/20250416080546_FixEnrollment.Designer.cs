@@ -3,6 +3,7 @@ using System;
 using Infrastructures.Databases;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructures.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250416080546_FixEnrollment")]
+    partial class FixEnrollment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -269,6 +272,10 @@ namespace Infrastructures.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("StudentId")
                         .IsRequired()
@@ -703,12 +710,12 @@ namespace Infrastructures.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b2a0d6f3-bbf7-47d8-9f22-792b7538e09e",
-                            CreatedAt = new DateTime(2025, 4, 17, 17, 37, 10, 653, DateTimeKind.Local).AddTicks(5092),
+                            Id = "e88c4056-c0eb-458c-b6f9-e504c1102aba",
+                            CreatedAt = new DateTime(2025, 4, 16, 14, 35, 46, 136, DateTimeKind.Local).AddTicks(4533),
                             Email = "superadmin@studify.com",
                             IsDeleted = false,
                             Name = "Super Admin",
-                            Password = "$2a$11$dkos/gGJIybVgwM05ZfoIe0gBx0nz4YNZTIm8TbattjVWug3ne7fS",
+                            Password = "$2a$11$silp.qowdsceTzh54PJZb.2GHXyT7yladR2sYQ.IfBMgeiIZxsB12",
                             Role = "SuperAdmin"
                         });
                 });

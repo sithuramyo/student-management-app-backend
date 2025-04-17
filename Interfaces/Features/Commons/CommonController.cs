@@ -31,7 +31,7 @@ public class CommonController(ICommonService service) : BaseController
     }
 
     [HttpGet("faculties")]
-    [ProducesResponseType(typeof(ApiResponse<PrerequisitesResponseModel>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<FacultiesResponseModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetFaculties()
     {
         var result = await service.GetFacultiesAsync();
@@ -39,7 +39,7 @@ public class CommonController(ICommonService service) : BaseController
     }
 
     [HttpGet("academic-terms")]
-    [ProducesResponseType(typeof(ApiResponse<PrerequisitesResponseModel>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse<AcademicTermsResponseModel>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAcademicTerms()
     {
         var result = await service.GetAcademicTermsAsync();

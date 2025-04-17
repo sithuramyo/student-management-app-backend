@@ -71,8 +71,9 @@ public class CommonService(AppDbContext context) : ICommonService
     public async Task<ApiResponse<AcademicTermsResponseModel>> GetAcademicTermsAsync()
     {
         AcademicTermsResponseModel response = new();
+        var today = DateOnly.FromDateTime(DateTime.Now);
         var academicTerms = await context.AcademicTerms
-            .Where(a => !a.IsDeleted)
+            .Where(a => !a.IsDeleted && a.EndDate > today)
             .Select(a => new AcademicTerm
             {
                 Id = a.Id,

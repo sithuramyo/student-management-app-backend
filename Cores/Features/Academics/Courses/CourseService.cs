@@ -49,7 +49,7 @@ public class CourseService(AppDbContext context) : ICourseService
 
         if (isExist)
         {
-            return ApiResponse<NoResponseModel>.Conflict("Course already exists");
+            return ApiResponse<NoResponseModel>.Conflict("Course is already exists");
         }
 
         await using var transaction = await context.Database.BeginTransactionAsync();

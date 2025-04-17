@@ -1,4 +1,5 @@
 ﻿using Cores.Features.Academics.AcademicTerms;
+using Cores.Features.Academics.CourseOfferings;
 using Cores.Features.Academics.Courses;
 using Cores.Features.Academics.Departments;
 using Cores.Features.Academics.Prerequisites;
@@ -39,6 +40,7 @@ public static class ServicesInjection
         services.AddScoped<ICourseService, CourseService>();
         services.AddScoped<IPrerequisiteService, PrerequisiteService>();
         services.AddScoped<IAcademicTermService, AcademicTermService>();
+        services.AddScoped<ICourseOfferingService, CourseOfferingService>();
 
         #endregion
 

@@ -30,4 +30,20 @@ public class CommonController(ICommonService service) : BaseController
         return result.IsSuccess ? Ok(result) : StatusCode(result.StatusCode, result);
     }
 
+    [HttpGet("faculties")]
+    [ProducesResponseType(typeof(ApiResponse<PrerequisitesResponseModel>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetFaculties()
+    {
+        var result = await service.GetFacultiesAsync();
+        return result.IsSuccess ? Ok(result) : StatusCode(result.StatusCode, result);
+    }
+
+    [HttpGet("academic-terms")]
+    [ProducesResponseType(typeof(ApiResponse<PrerequisitesResponseModel>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAcademicTerms()
+    {
+        var result = await service.GetAcademicTermsAsync();
+        return result.IsSuccess ? Ok(result) : StatusCode(result.StatusCode, result);
+    }
+
 }

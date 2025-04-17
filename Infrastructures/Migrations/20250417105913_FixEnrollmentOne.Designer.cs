@@ -3,6 +3,7 @@ using System;
 using Infrastructures.Databases;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructures.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250417105913_FixEnrollmentOne")]
+    partial class FixEnrollmentOne
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -703,12 +706,12 @@ namespace Infrastructures.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b2a0d6f3-bbf7-47d8-9f22-792b7538e09e",
-                            CreatedAt = new DateTime(2025, 4, 17, 17, 37, 10, 653, DateTimeKind.Local).AddTicks(5092),
+                            Id = "0591540b-9201-45b1-aeea-64c07e5c5d02",
+                            CreatedAt = new DateTime(2025, 4, 17, 17, 29, 12, 951, DateTimeKind.Local).AddTicks(8156),
                             Email = "superadmin@studify.com",
                             IsDeleted = false,
                             Name = "Super Admin",
-                            Password = "$2a$11$dkos/gGJIybVgwM05ZfoIe0gBx0nz4YNZTIm8TbattjVWug3ne7fS",
+                            Password = "$2a$11$iPGReha4Nfxsgxa0qlBXvuiJFvWjiVUn6OlK/RX/OvSl/U9cX4cFa",
                             Role = "SuperAdmin"
                         });
                 });

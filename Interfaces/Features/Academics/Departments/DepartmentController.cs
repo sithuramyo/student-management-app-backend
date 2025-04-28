@@ -3,7 +3,6 @@ using Shares.Models.Academics.Departments;
 
 namespace Interfaces.Features.Academics.Departments;
 
-[Authorize]
 public class DepartmentController(IDepartmentService service) : BaseController
 {
     [HttpGet]

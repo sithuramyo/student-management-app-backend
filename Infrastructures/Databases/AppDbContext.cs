@@ -60,7 +60,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
     #region Communications
 
-    public virtual DbSet<ChatMessage> ChatMessages { get; set; }
     public virtual DbSet<ChatParticipant> ChatParticipants { get; set; }
     public virtual DbSet<ChatRoom> ChatRooms { get; set; }
     public virtual DbSet<Notification> Notifications { get; set; }

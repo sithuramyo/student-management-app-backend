@@ -59,7 +59,7 @@ namespace Infrastructures.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("text");
 
-                    b.Property<string>("CourseId")
+                    b.Property<string>("ClassScheduleId")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -100,6 +100,10 @@ namespace Infrastructures.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("CourseTitle")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp without time zone");
 
@@ -108,6 +112,10 @@ namespace Infrastructures.Migrations
 
                     b.Property<TimeOnly>("EndTime")
                         .HasColumnType("time without time zone");
+
+                    b.Property<string>("FacultyName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -703,12 +711,12 @@ namespace Infrastructures.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b2a0d6f3-bbf7-47d8-9f22-792b7538e09e",
-                            CreatedAt = new DateTime(2025, 4, 17, 17, 37, 10, 653, DateTimeKind.Local).AddTicks(5092),
+                            Id = "2d126407-22b0-4eac-9e89-a6f810f73184",
+                            CreatedAt = new DateTime(2025, 4, 27, 19, 45, 32, 989, DateTimeKind.Local).AddTicks(6798),
                             Email = "superadmin@studify.com",
                             IsDeleted = false,
                             Name = "Super Admin",
-                            Password = "$2a$11$dkos/gGJIybVgwM05ZfoIe0gBx0nz4YNZTIm8TbattjVWug3ne7fS",
+                            Password = "$2a$11$piE4.rsXolCEdlxRaisTC.ddtPFQe89h04hqjesJvyUgij57tJUtq",
                             Role = "SuperAdmin"
                         });
                 });

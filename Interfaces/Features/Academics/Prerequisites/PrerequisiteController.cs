@@ -3,7 +3,6 @@ using Shares.Models.Academics.Prerequisites;
 
 namespace Interfaces.Features.Academics.Prerequisites;
 
-[Authorize]
 public class PrerequisiteController(IPrerequisiteService service) : BaseController
 {
     [HttpGet]

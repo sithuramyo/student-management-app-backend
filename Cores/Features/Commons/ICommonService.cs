@@ -9,5 +9,6 @@ public interface ICommonService
     Task<ApiResponse<PrerequisitesResponseModel>> GetPrerequisitesAsync();
     Task<ApiResponse<FacultiesResponseModel>> GetFacultiesAsync();
     Task<ApiResponse<AcademicTermsResponseModel>> GetAcademicTermsAsync();
+    Task<ApiResponse<CourseOfferingsResponseModel>> GetCourseOfferingAsync(string academicTermId);
 
 }

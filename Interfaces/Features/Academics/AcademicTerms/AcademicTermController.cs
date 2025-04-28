@@ -3,7 +3,6 @@ using Shares.Models.Academics.AcademicTerms;
 
 namespace Interfaces.Features.Academics.AcademicTerms;
 
-[Authorize]
 public class AcademicTermController(IAcademicTermService service) : BaseController
 {
     [HttpGet]

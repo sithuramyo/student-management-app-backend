@@ -3,7 +3,7 @@
 public class AcademicTerm : BaseDataModel
 {
     public string? Profile { get; set; }
-    public string Name { get; set; } = null!; // e.g., Spring 2025
+    public string Name { get; set; } = null!;
     public DateOnly StartDate { get; set; }
     public DateOnly EndDate { get; set; }
 }

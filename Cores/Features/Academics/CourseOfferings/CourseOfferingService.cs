@@ -129,6 +129,7 @@ public class CourseOfferingService(AppDbContext context) : ICourseOfferingServic
         {
             return ApiResponse<NoResponseModel>.Conflict("Course offering is already exists");
         }
+
         var oldOfferings = await context.CourseOfferings
             .Where(x => x.AcademicTermId == request.AcademicTermId)
             .ToListAsync();

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using HealthChecks.UI.Client;
+using Infrastructures.Builders;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,6 +21,7 @@ if ((int)State.Deployment == Convert.ToInt32(state))
 builder.WebHost.UseUrls(url);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddSignalR();
 var jwtIssuer = builder.Configuration["Jwt:Issuer"];
 var jwtAudience = builder.Configuration["Jwt:Audience"];
 var jwtSecret = builder.Configuration["Jwt:Secret"];
@@ -58,6 +60,7 @@ builder.Services.AddCors(options =>
 builder.Services.InjectServices();
 builder.Services.AddControllers();
 builder.Services.AddDatabaseInjection(builder.Configuration);
+builder.Services.AddRabbitMqInjection(builder.Configuration);
 builder.Services.AddExceptionHandler<ExceptionHandler>();
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>

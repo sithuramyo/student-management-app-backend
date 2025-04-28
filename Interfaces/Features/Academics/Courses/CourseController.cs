@@ -2,7 +2,6 @@
 using Shares.Models.Academics.Courses;
 namespace Interfaces.Features.Academics.Courses;
 
-[Authorize]
 public class CourseController(ICourseService service) : BaseController
 {
     [HttpGet]

@@ -3,7 +3,9 @@ using Shares.Models.Auth;
 
 namespace Interfaces.Features.Auth;
 
-public class AuthController(IAuthService service) : BaseController
+[ApiController]
+[Route("api/[controller]")]
+public class AuthController(IAuthService service) : ControllerBase
 {
     [HttpPost]
     [ProducesResponseType(typeof(ApiResponse<AuthResponseModel>), StatusCodes.Status200OK)]

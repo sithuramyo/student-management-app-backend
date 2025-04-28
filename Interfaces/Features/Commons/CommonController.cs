@@ -3,7 +3,6 @@ using Shares.Models.Commons;
 
 namespace Interfaces.Features.Commons;
 
-[Authorize]
 public class CommonController(ICommonService service) : BaseController
 {
     [HttpGet("departments")]
@@ -43,6 +42,14 @@ public class CommonController(ICommonService service) : BaseController
     public async Task<IActionResult> GetAcademicTerms()
     {
         var result = await service.GetAcademicTermsAsync();
+        return result.IsSuccess ? Ok(result) : StatusCode(result.StatusCode, result);
+    }
+
+    [HttpGet("course-offerings/{academicTermId}")]
+    [ProducesResponseType(typeof(ApiResponse<CourseOfferingsResponseModel>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetCourseOfferings(string academicTermId)
+    {
+        var result = await service.GetCourseOfferingAsync(academicTermId);
         return result.IsSuccess ? Ok(result) : StatusCode(result.StatusCode, result);
     }
 

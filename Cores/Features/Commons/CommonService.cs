@@ -1,5 +1,4 @@
-﻿using System.Linq.Dynamic.Core;
-using Shares.Models.Commons;
+﻿using Shares.Models.Commons;
 
 namespace Cores.Features.Commons;
 
@@ -31,7 +30,7 @@ public class CommonService(AppDbContext context) : ICommonService
                 Id = c.Id,
                 Code = c.Code,
                 Title = c.Title,
-                Profile = c.Profile,
+                Profile = c.Profile ?? "N/A",
             }).ToListAsync();
         response.Courses = courses;
         return ApiResponse<CoursesResponseModel>.Success(response);
@@ -83,5 +82,19 @@ public class CommonService(AppDbContext context) : ICommonService
             }).ToListAsync();
         response.AcademicTerms = academicTerms;
         return ApiResponse<AcademicTermsResponseModel>.Success(response);
+    }
+
+    public async Task<ApiResponse<CourseOfferingsResponseModel>> GetCourseOfferingAsync(string academicTermId)
+    {
+        CourseOfferingsResponseModel response = new();
+        var data = await context.CourseOfferings.Where(c => c.AcademicTermId == academicTermId && !c.IsDeleted)
+            .ToListAsync();
+        response.CourseOfferings = data.Select(x => new CourseOfferings
+        {
+            Id = x.Id,
+            CourseId = x.CourseId,
+            FacultyId = x.FacultyId,
+        }).ToList();
+        return ApiResponse<CourseOfferingsResponseModel>.Success(response);
     }
 }

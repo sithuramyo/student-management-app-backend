@@ -3,7 +3,6 @@ using Shares.Models.Academics.CourseOfferings;
 
 namespace Interfaces.Features.Academics.CourseOfferings;
 
-[Authorize]
 public class CourseOfferingController(ICourseOfferingService service) : BaseController
 {
     [HttpGet]

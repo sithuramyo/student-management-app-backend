@@ -10,7 +10,6 @@ public class PastDateOnlyAttribute : ValidationAttribute
         {
             return date <= DateOnly.FromDateTime(DateTime.Today);
         }
-
         return false;
     }
 }
@@ -23,7 +22,6 @@ public class FutureOrTodayOnlyAttribute : ValidationAttribute
         {
             return date >= DateOnly.FromDateTime(DateTime.Today);
         }
-
         return false;
     }
 }

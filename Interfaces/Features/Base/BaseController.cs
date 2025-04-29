@@ -7,9 +7,17 @@ namespace Interfaces.Features.Base;
 [Route("api/[controller]")]
 public class BaseController : ControllerBase
 {
-    protected string GetCurrentUserId() =>
-        User.FindFirstValue(JwtRegisteredClaimNames.Sub) ?? throw new UnauthorizedAccessException();
-
+    // protected string GetCurrentUserId() =>
+    //     User.FindFirstValue(JwtRegisteredClaimNames.Sub) ?? throw new UnauthorizedAccessException();
     protected string GetCurrentUserEmail() =>
         User.FindFirstValue(JwtRegisteredClaimNames.Email) ?? throw new UnauthorizedAccessException();
+
+    [NonAction]
+    protected string GetCurrentUserId()
+    {
+        var jwtToken = HttpContext.Request.Headers.Authorization.ToString().Replace("Bearer ", "");
+        var handler = new JwtSecurityTokenHandler();
+        var token = handler.ReadJwtToken(jwtToken);
+        return token.Subject;
+    }
 }

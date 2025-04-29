@@ -1,4 +1,5 @@
 ﻿using Shares.Models.Commons;
+using Shares.Models.Communications;
 
 namespace Cores.Features.Commons;
 
@@ -96,5 +97,28 @@ public class CommonService(AppDbContext context) : ICommonService
             FacultyId = x.FacultyId,
         }).ToList();
         return ApiResponse<CourseOfferingsResponseModel>.Success(response);
+    }
+
+    public async Task<ApiResponse<List<UsersResponseModel>>> GetUsersAsync(string search)
+    {
+        var query = context.SystemUsers.AsNoTracking();
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            search = search.ToLower();
+            query = query.Where(d =>
+                EF.Functions.ILike(d.Name, $"%{search}%")
+                || EF.Functions.ILike(d.Email, $"%{search}%"));
+        }
+
+        var projectQuery = await query.Select(x => new UsersResponseModel
+        {
+            Id = x.Id,
+            Name = x.Name,
+            Email = x.Email,
+            Profile = x.Profile ?? "N/A",
+        }).ToListAsync();
+
+        return ApiResponse<List<UsersResponseModel>>.Success(projectQuery);
     }
 }

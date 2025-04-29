@@ -118,13 +118,13 @@ public class ChatService(AppDbContext context, IMongoDbContext mongoDbContext, I
         return ApiResponse<CreateChatRoomResponseModel>.Success(response);
     }
 
-    public async Task<ApiResponse<SendMessageResponse>> SendMessage(string senderId,
+    public async Task<ApiResponse<SendMessageResponse>> SendMessage(string senderId,string roomId,
         SendMessageRequest request)
     {
         SendMessageResponse response = new();
         var chatMessage = new ChatMessage
         {
-            ChatRoomId = request.ChatRoomId,
+            ChatRoomId = roomId,
             SenderId = senderId,
             Content = request.Content,
             SentAt = DateTime.UtcNow,
@@ -135,7 +135,7 @@ public class ChatService(AppDbContext context, IMongoDbContext mongoDbContext, I
 
         await publishEndpoint.Publish(new ChatMessageEvent
         {
-            ChatRoomId = request.ChatRoomId,
+            ChatRoomId = roomId,
             SenderId = senderId,
             Content = request.Content
         });

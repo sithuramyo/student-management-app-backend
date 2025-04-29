@@ -43,10 +43,10 @@ public class ChatController(IChatService service) : BaseController
 
     [HttpPost("send")]
     [ProducesResponseType(typeof(ApiResponse<SendMessageResponse>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> SendMessage(ApiRequest<SendMessageRequest> request)
+    public async Task<IActionResult> SendMessage([FromQuery] string roomId,ApiRequest<SendMessageRequest> request)
     {
         var currentUserId = GetCurrentUserId();
-        var result = await service.SendMessage(currentUserId, request.Request);
+        var result = await service.SendMessage(currentUserId, roomId, request.Request);
         return result.IsSuccess ? Ok(result) : StatusCode(result.StatusCode, result);
     }
 

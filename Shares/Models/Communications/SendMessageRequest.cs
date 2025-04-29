@@ -2,7 +2,7 @@
 
 public class SendMessageRequest
 {
-    public string RoomId = null!;
+    public string ChatRoomId = null!;
     public string Content { get; set; } = null!;
 }
 

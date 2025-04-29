@@ -124,7 +124,7 @@ public class ChatService(AppDbContext context, IMongoDbContext mongoDbContext, I
         SendMessageResponse response = new();
         var chatMessage = new ChatMessage
         {
-            ChatRoomId = request.RoomId,
+            ChatRoomId = request.ChatRoomId,
             SenderId = senderId,
             Content = request.Content,
             SentAt = DateTime.UtcNow,
@@ -135,7 +135,7 @@ public class ChatService(AppDbContext context, IMongoDbContext mongoDbContext, I
 
         await publishEndpoint.Publish(new ChatMessageEvent
         {
-            ChatRoomId = request.RoomId,
+            ChatRoomId = request.ChatRoomId,
             SenderId = senderId,
             Content = request.Content
         });

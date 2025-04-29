@@ -56,7 +56,7 @@ public class CommonController(ICommonService service) : BaseController
 
     [HttpGet("users")]
     [ProducesResponseType(typeof(ApiResponse<List<UsersResponseModel>>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetUsers([FromQuery] string search)
+    public async Task<IActionResult> GetUsers([FromQuery] string search = "")
     {
         var result = await service.GetUsersAsync(search);
         return result.IsSuccess ? Ok(result) : StatusCode(result.StatusCode, result);

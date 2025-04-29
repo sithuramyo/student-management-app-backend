@@ -118,7 +118,7 @@ public class ChatService(AppDbContext context, IMongoDbContext mongoDbContext, I
         return ApiResponse<CreateChatRoomResponseModel>.Success(response);
     }
 
-    public async Task<ApiResponse<SendMessageResponse>> SendMessage(string senderId,string roomId,
+    public async Task<ApiResponse<SendMessageResponse>> SendMessage(string senderId, string roomId,
         SendMessageRequest request)
     {
         SendMessageResponse response = new();

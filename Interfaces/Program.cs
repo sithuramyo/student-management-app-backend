@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using HealthChecks.UI.Client;
 using Infrastructures.Builders;
+using Shares.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -97,4 +98,5 @@ app.MapHealthChecks("/health", new HealthCheckOptions
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
 app.MapControllers();
+app.MapHub<ChatHub>("/chatHub");
 app.Run();

@@ -7,11 +7,6 @@ namespace Interfaces.Features.Base;
 [Route("api/[controller]")]
 public class BaseController : ControllerBase
 {
-    // protected string GetCurrentUserId() =>
-    //     User.FindFirstValue(JwtRegisteredClaimNames.Sub) ?? throw new UnauthorizedAccessException();
-    protected string GetCurrentUserEmail() =>
-        User.FindFirstValue(JwtRegisteredClaimNames.Email) ?? throw new UnauthorizedAccessException();
-
     [NonAction]
     protected string GetCurrentUserId()
     {

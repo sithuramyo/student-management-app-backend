@@ -1,5 +1,6 @@
 ﻿using Cores.Features.Commons;
 using Shares.Models.Commons;
+using Shares.Models.Communications;
 
 namespace Interfaces.Features.Commons;
 
@@ -50,6 +51,14 @@ public class CommonController(ICommonService service) : BaseController
     public async Task<IActionResult> GetCourseOfferings(string academicTermId)
     {
         var result = await service.GetCourseOfferingAsync(academicTermId);
+        return result.IsSuccess ? Ok(result) : StatusCode(result.StatusCode, result);
+    }
+
+    [HttpGet("users")]
+    [ProducesResponseType(typeof(ApiResponse<List<UsersResponseModel>>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetUsers([FromQuery] string search)
+    {
+        var result = await service.GetUsersAsync(search);
         return result.IsSuccess ? Ok(result) : StatusCode(result.StatusCode, result);
     }
 

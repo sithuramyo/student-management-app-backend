@@ -11,6 +11,4 @@ public interface ICommonService
     Task<ApiResponse<FacultiesResponseModel>> GetFacultiesAsync();
     Task<ApiResponse<AcademicTermsResponseModel>> GetAcademicTermsAsync();
     Task<ApiResponse<CourseOfferingsResponseModel>> GetCourseOfferingAsync(string academicTermId);
-    Task<ApiResponse<List<UsersResponseModel>>> GetUsersAsync(string search);
-
 }

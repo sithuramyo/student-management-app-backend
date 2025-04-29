@@ -5,6 +5,15 @@ namespace Interfaces.Features.Communications;
 
 public class ChatController(IChatService service) : BaseController
 {
+    [HttpGet("chat-users")]
+    [ProducesResponseType(typeof(ApiResponse<List<UsersResponseModel>>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetUsers([FromQuery] string search = "")
+    {
+        var currentUserId = GetCurrentUserId();
+        var result = await service.GetChatUsersAsync(search, currentUserId);
+        return result.IsSuccess ? Ok(result) : StatusCode(result.StatusCode, result);
+    }
+
     [HttpGet("rooms")]
     [ProducesResponseType(typeof(ApiResponse<List<ChatRoomResponseModel>>), StatusCodes.Status200OK)]
     public async Task<IActionResult> GetChatRooms()

@@ -9,6 +9,47 @@ namespace Cores.Features.Communications;
 public class ChatService(AppDbContext context, IMongoDbContext mongoDbContext, IPublishEndpoint publishEndpoint)
     : IChatService
 {
+
+    public async Task<ApiResponse<List<UsersResponseModel>>> GetChatUsersAsync(string search, string currentUserId)
+    {
+        var query = context.SystemUsers.AsNoTracking();
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            search = search.ToLower();
+            query = query.Where(d =>
+                EF.Functions.ILike(d.Name, $"%{search}%") ||
+                EF.Functions.ILike(d.Email, $"%{search}%"));
+        }
+
+        var userChatParticipants = await context.ChatParticipants
+            .Where(cp => cp.UserId != currentUserId &&
+                         context.ChatParticipants
+                             .Where(inner => inner.UserId == currentUserId)
+                             .Select(inner => inner.ChatRoomId)
+                             .Contains(cp.ChatRoomId))
+            .ToListAsync();
+
+        var userIdToChatRoomId = userChatParticipants
+            .GroupBy(cp => cp.UserId)
+            .ToDictionary(g => g.Key, g => g.First().ChatRoomId);
+
+        var users = await query
+            .Where(x => x.Role == SystemUserRole.SuperAdmin.ToString())
+            .ToListAsync();
+
+        var result = users.Select(user => new UsersResponseModel
+        {
+            Id = user.Id,
+            Name = user.Name,
+            Email = user.Email,
+            Profile = user.Profile ?? "N/A",
+            ChatRoomId = userIdToChatRoomId.GetValueOrDefault(user.Id)
+        }).ToList();
+
+        return ApiResponse<List<UsersResponseModel>>.Success(result);
+    }
+
     public async Task<ApiResponse<List<ChatRoomResponseModel>>> GetChatRooms(string userId)
     {
         var chatroomIds = await context.ChatParticipants.Where(x => x.UserId == userId).Select(x => x.ChatRoomId)

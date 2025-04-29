@@ -9,7 +9,20 @@ public class ChatMessageConsumer(IHubContext<ChatHub> hubContext) : IConsumer<Ch
     public async Task Consume(ConsumeContext<ChatMessageEvent> context)
     {
         var message = context.Message;
+
+        if (string.IsNullOrWhiteSpace(message.ChatRoomId))
+        {
+            Console.WriteLine(
+                $"[Warning] Received ChatMessageEvent with null or empty ChatRoomId. SenderId: {message.SenderId}");
+            return;
+        }
+
         await hubContext.Clients.Group(message.ChatRoomId)
-            .SendAsync("ReceiveMessage", message.SenderId, message.Content);
+            .SendAsync("ReceiveMessage", new
+            {
+                message.SenderId,
+                message.Content,
+                message.ChatRoomId,
+            });
     }
 }

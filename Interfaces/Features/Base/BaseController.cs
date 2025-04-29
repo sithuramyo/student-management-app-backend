@@ -11,7 +11,7 @@ public class BaseController : ControllerBase
     //     User.FindFirstValue(JwtRegisteredClaimNames.Sub) ?? throw new UnauthorizedAccessException();
     protected string GetCurrentUserEmail() =>
         User.FindFirstValue(JwtRegisteredClaimNames.Email) ?? throw new UnauthorizedAccessException();
-    
+
     [NonAction]
     protected string GetCurrentUserId()
     {

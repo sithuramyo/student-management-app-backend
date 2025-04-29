@@ -10,11 +10,9 @@ public static class RabbitMqInjection
         services.AddMassTransit(x =>
         {
             x.AddConsumer<ChatMessageConsumer>();
-
             x.UsingRabbitMq((context, cfg) =>
             {
                 cfg.Host(configuration.GetConnectionString("RabbitMq"));
-
                 cfg.ReceiveEndpoint("chat-messages", e =>
                 {
                     e.ConfigureConsumer<ChatMessageConsumer>(context);

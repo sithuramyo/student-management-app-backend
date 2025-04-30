@@ -44,7 +44,9 @@ public class ChatService(AppDbContext context, IMongoDbContext mongoDbContext, I
             Name = user.Name,
             Email = user.Email,
             Profile = user.Profile ?? "N/A",
-            ChatRoomId = userIdToChatRoomId.GetValueOrDefault(user.Id)
+            ChatRoomId = userIdToChatRoomId.GetValueOrDefault(user.Id),
+            IsOnline = ChatHub.OnlineUserIds.Contains(user.Id),
+            LastSeen = ChatHub.UserLastSeen.TryGetValue(user.Id, out var value) ? value : null,
         }).ToList();
 
         return ApiResponse<List<UsersResponseModel>>.Success(result);
@@ -72,7 +74,7 @@ public class ChatService(AppDbContext context, IMongoDbContext mongoDbContext, I
 
         var messages = await mongoDbContext.ChatMessages
             .Find(x => x.ChatRoomId == roomId)
-            .SortBy(x => x.SentAt)
+            .SortByDescending(x => x.SentAt)
             .Skip(skip)
             .Limit(pageSize)
             .ToListAsync();

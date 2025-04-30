@@ -7,4 +7,6 @@ public class UsersResponseModel
     public string Email { get; set; }
     public string Profile { get; set; }
     public string? ChatRoomId { get; set; }
+    public bool IsOnline { get; set; }
+    public DateTime? LastSeen { get; set; }
 }

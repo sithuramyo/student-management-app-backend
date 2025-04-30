@@ -37,7 +37,7 @@ public class ChatService(AppDbContext context, IMongoDbContext mongoDbContext, I
         var users = await query
             .Where(x => x.Role != SystemUserRole.SuperAdmin.ToString())
             .ToListAsync();
-        
+
         var result = users.Select(user => new UsersResponseModel
         {
             Id = user.Id,

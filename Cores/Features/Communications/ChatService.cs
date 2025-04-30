@@ -72,7 +72,7 @@ public class ChatService(AppDbContext context, IMongoDbContext mongoDbContext, I
 
         var messages = await mongoDbContext.ChatMessages
             .Find(x => x.ChatRoomId == roomId)
-            .SortByDescending(x => x.SentAt)
+            .SortBy(x => x.SentAt)
             .Skip(skip)
             .Limit(pageSize)
             .ToListAsync();

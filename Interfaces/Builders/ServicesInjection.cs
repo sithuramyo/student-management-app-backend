@@ -59,5 +59,9 @@ public static class ServicesInjection
         #region Communication
         services.AddScoped<IChatService, ChatService>();
         #endregion
+        
+        #region Faculties
+        services.AddScoped<IFacultyService, FacultyService>();
+        #endregion
     }
 }

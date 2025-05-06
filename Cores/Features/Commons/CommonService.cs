@@ -1,4 +1,5 @@
-﻿using Shares.Models.Commons;
+﻿using System.Linq.Dynamic.Core;
+using Shares.Models.Commons;
 
 namespace Cores.Features.Commons;
 
@@ -87,6 +88,18 @@ public class CommonService(AppDbContext context) : ICommonService
     public async Task<ApiResponse<CourseOfferingsResponseModel>> GetCourseOfferingAsync(string academicTermId)
     {
         CourseOfferingsResponseModel response = new();
+        
+        var termData = await context.AcademicTerms
+            .Where(x => x.Id == academicTermId && !x.IsDeleted)
+            .Select(x => new { x.StartDate, x.EndDate })
+            .FirstOrDefaultAsync();
+
+        if (termData is not null)
+        {
+            response.StartDate = termData.StartDate;
+            response.EndDate = termData.EndDate;
+        }
+        
         var data = await context.CourseOfferings.Where(c => c.AcademicTermId == academicTermId && !c.IsDeleted)
             .ToListAsync();
         response.CourseOfferings = data.Select(x => new CourseOfferings

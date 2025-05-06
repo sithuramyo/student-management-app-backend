@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Shares.Attributes;
 
 namespace Shares.Models.Academics.ClassSchedules;
 
@@ -16,6 +17,9 @@ public class CourseScheduleInfoModel
     public string CourseTitle { get; set; }
     [Required]
     public string FacultyName { get; set; }
+    [Required(ErrorMessage = "Schedule date is required")]
+    [FutureOrTodayOnly(ErrorMessage = "Schedule date must be today or in the future")]
+    public DateOnly ScheduleDate { get; set; }
     [Required]
     public DayOfWeek DayOfWeek { get; set; }
     [Required]

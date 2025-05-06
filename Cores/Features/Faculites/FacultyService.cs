@@ -2,5 +2,5 @@
 
 public class FacultyService(AppDbContext context) : IFacultyService
 {
-    
+
 }

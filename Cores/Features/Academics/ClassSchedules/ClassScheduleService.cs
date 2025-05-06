@@ -44,7 +44,7 @@ public class ClassScheduleService(AppDbContext context) : IClassScheduleService
         {
             return ApiResponse<NoResponseModel>.Conflict("Course Schedule already exists");
         }
-        
+
         await context.ClassSchedules.AddRangeAsync(
                     request.CourseSchedules.Select(cs => new ClassSchedule
                     {

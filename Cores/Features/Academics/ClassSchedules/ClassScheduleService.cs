@@ -23,6 +23,7 @@ public class ClassScheduleService(AppDbContext context) : IClassScheduleService
             Id = d.Id,
             CourseTitle = d.CourseTitle,
             FacultyName = d.FacultyName,
+            ScheduleDate = d.ScheduleDate,
             DayOfWeek = d.DayOfWeek,
             StartTime = d.StartTime,
             EndTime = d.EndTime,
@@ -44,15 +45,13 @@ public class ClassScheduleService(AppDbContext context) : IClassScheduleService
             return ApiResponse<NoResponseModel>.Conflict("Course Schedule already exists");
         }
 
-        var courseOfferingList = await context.CourseOfferings
-            .Where(x => courseOfferingIds.Contains(x.Id) && !x.IsDeleted)
-            .ToListAsync();
         await context.ClassSchedules.AddRangeAsync(
                     request.CourseSchedules.Select(cs => new ClassSchedule
                     {
                         CourseOfferingId = cs.CourseOfferingId,
                         CourseTitle = cs.CourseTitle,
                         FacultyName = cs.FacultyName,
+                        ScheduleDate = cs.ScheduleDate,
                         DayOfWeek = cs.DayOfWeek,
                         StartTime = cs.StartTime,
                         EndTime = cs.EndTime,

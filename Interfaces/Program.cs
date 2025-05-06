@@ -62,6 +62,7 @@ builder.Services.InjectServices();
 builder.Services.AddControllers();
 builder.Services.AddDatabaseInjection(builder.Configuration);
 builder.Services.AddRabbitMqInjection(builder.Configuration);
+builder.Services.AddConverter();
 builder.Services.AddExceptionHandler<ExceptionHandler>();
 
 builder.Services.Configure<ApiBehaviorOptions>(options =>

@@ -29,7 +29,7 @@ public class CourseOfferingService(AppDbContext context) : ICourseOfferingServic
 
         var terms = await context.AcademicTerms.AsNoTracking().ToDictionaryAsync(x => x.Id);
         var courses = await context.Courses.AsNoTracking().ToDictionaryAsync(x => x.Id);
-        var faculties = await context.Faculties.AsNoTracking().ToDictionaryAsync(x => x.Id);
+        var faculties = await context.Faculties.AsNoTracking().ToDictionaryAsync(x => x.SystemUserId);
 
         var flatData = await offeringsQuery
             .Select(x => new

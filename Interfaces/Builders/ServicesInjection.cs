@@ -10,7 +10,7 @@ using Cores.Features.Communications;
 using Cores.Features.Persons.Faculties;
 using Cores.Features.Persons.Students;
 using Cores.Features.Persons.SystemUsers;
-using Infrastructures.DataModels.Communications;
+using Cores.Features.Faculites;
 using Shares.Helpers;
 
 namespace Interfaces.Builders;
@@ -61,7 +61,7 @@ public static class ServicesInjection
         #endregion
 
         #region Faculties
-        services.AddScoped<IFacultyService, FacultyService>();
+        services.AddScoped<IUserFacultyService, UserFacultyService>();
         #endregion
     }
 }

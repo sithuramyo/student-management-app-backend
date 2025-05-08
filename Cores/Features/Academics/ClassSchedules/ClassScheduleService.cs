@@ -24,7 +24,6 @@ public class ClassScheduleService(AppDbContext context) : IClassScheduleService
             CourseTitle = d.CourseTitle,
             FacultyName = d.FacultyName,
             ScheduleDate = d.ScheduleDate,
-            DayOfWeek = d.DayOfWeek,
             StartTime = d.StartTime,
             EndTime = d.EndTime,
             Location = d.Location
@@ -52,7 +51,6 @@ public class ClassScheduleService(AppDbContext context) : IClassScheduleService
                         CourseTitle = cs.CourseTitle,
                         FacultyName = cs.FacultyName,
                         ScheduleDate = cs.ScheduleDate,
-                        DayOfWeek = cs.DayOfWeek,
                         StartTime = cs.StartTime,
                         EndTime = cs.EndTime,
                         Location = cs.Location

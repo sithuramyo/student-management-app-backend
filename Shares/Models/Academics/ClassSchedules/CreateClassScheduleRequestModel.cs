@@ -21,8 +21,6 @@ public class CourseScheduleInfoModel
     [FutureOrTodayOnly(ErrorMessage = "Schedule date must be today or in the future")]
     public DateOnly ScheduleDate { get; set; }
     [Required]
-    public DayOfWeek DayOfWeek { get; set; }
-    [Required]
     public TimeOnly StartTime { get; set; }
     [Required]
     public TimeOnly EndTime { get; set; }

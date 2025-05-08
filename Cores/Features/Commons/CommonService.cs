@@ -61,7 +61,7 @@ public class CommonService(AppDbContext context) : ICommonService
             .Where(f => !f.IsDeleted)
             .Select(f => new Faculty
             {
-                Id = f.Id,
+                Id = f.SystemUserId,
                 Name = f.Name
             }).ToListAsync();
         response.Faculties = faculties;

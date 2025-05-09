@@ -53,4 +53,12 @@ public class CommonController(ICommonService service) : BaseController
         var result = await service.GetCourseOfferingAsync(academicTermId);
         return result.IsSuccess ? Ok(result) : StatusCode(result.StatusCode, result);
     }
+
+    [HttpGet("employee-leave-request-info")]
+    [ProducesResponseType(typeof(ApiResponse<EmployeeLeaveRequestInfoResponseModel>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetEmployeeLeaveRequestInfo()
+    {
+        var result = await service.GetEmployeeLeaveRequestInfoAsync();
+        return result.IsSuccess ? Ok(result) : StatusCode(result.StatusCode, result);
+    }
 }

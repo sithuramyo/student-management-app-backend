@@ -110,4 +110,18 @@ public class CommonService(AppDbContext context) : ICommonService
         }).ToList();
         return ApiResponse<CourseOfferingsResponseModel>.Success(response);
     }
+
+    public async Task<ApiResponse<EmployeeLeaveRequestInfoResponseModel>> GetEmployeeLeaveRequestInfoAsync()
+    {
+        EmployeeLeaveRequestInfoResponseModel response = new();
+        var data = await context.EmployeeLeaveInfos.Select(x => new EmployeeLeaveRequestInfo
+        {
+            Id = x.Id,
+            LeaveName = x.LeaveName,
+            Description = x.Description,
+            TypicalDays = x.TypicalDays
+        }).ToListAsync();
+        response.EmployeeLeaveRequestInfos = data;
+        return ApiResponse<EmployeeLeaveRequestInfoResponseModel>.Success(response);
+    }
 }
